@@ -30,6 +30,9 @@ class Coordenadas {
     QString Coordenada_est;
     QString Coordenada_tiempo_act;
 };
+
+
+
 #endif // APLICACIONES_H
 
 

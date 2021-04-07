@@ -10,13 +10,14 @@ static uint8_t tiempo = 0u;
 static QString valor_PWM;
 using namespace cv;
 static QString  nombre_archivo_global;
-static bool Envio_bandera = false, Preparado = false;
+static bool Envio_bandera = false, Preparado = false, Centro_bandera = false, Cero_bandera = false;
 static bool bandera_01mm= false, bandera_05mm=false,  bandera_100mm= false, bandera_1000mm= false;
 static Mat imagen1;
 static Mat imagen1_chica;
 static VideoCapture camara("http://192.168.0.104:8080/video");
 static QString paridad_envio;
 static QRegExp mpx("WPos:([^,]*),([^,]*),([^,^>^|]*)");
+
 void MainWindow::Recepcion_Cordenadas()
 {
 
@@ -41,6 +42,7 @@ void MainWindow::Recepcion_Cordenadas()
 
 void MainWindow::Despliegue_Cordenadas()
 {
+
     CordenadasMaquina();
 }
 
@@ -171,15 +173,18 @@ void MainWindow::on_Conectar_clicked()
 
 void MainWindow::on_Cerrar_clicked()
 {
-    if(serialDeviceIsConnected)
+    if(serialDeviceIsConnected == false)
     {
         usbDevice->close();
-        serialDeviceIsConnected = false;
-        //qDebug() << "Connection to: "<< usbDevice->portName() << " " << deviceDescription << " closed";
+        ui->Estado_textBrowser->setText("No conectado");
+        ui->Terminal->setText("No conectado");
+
+        //serialDeviceIsConnected = true;
+
     }
     else
     {
-       //qDebug() << "Can't disconnect, no device is connected";
+
     }
 }
 
@@ -256,47 +261,74 @@ void MainWindow::onSerialDataAvailable()
 
 void MainWindow::CordenadasMaquina()
 {
-    serialRead();
-    QString data = usbDevice->readLine().trimmed();
-    QString estado = data.mid(1,4);
     Coordenadas X;
     Coordenadas Y;
     Coordenadas Z;
+    serialRead();
+    QString data = usbDevice->readLine().trimmed();
+    QString estado = data.mid(1,4);
+
     //static QRegExp mpx("WPos:([^,]*),([^,]*),([^,^>^|]*)");
     if(estado.toUtf8() == "k")
     {
         qDebug() << "Correcto";
         paridad_envio = "Correcto";
+        ui->Terminal->setText(paridad_envio + "\n");
     }
     if (mpx.indexIn(data) != -1)
     {
         ui->MPosX->display(mpx.cap(1));
-
         ui->MPosY->display(mpx.cap(2));
-
         ui->MPosZ->display(mpx.cap(3));
+        if(estado == "Idle") ui->Estado_textBrowser->setText("En espera");
+        if(estado == "Jog|") ui->Estado_textBrowser->setText("En movimiento");
+        if(estado == "Run|") ui->Estado_textBrowser->setText("En ejecución");
+        if(estado == "Hold") ui->Estado_textBrowser->setText("En pausa");
+        if(estado == "Alar") ui->Estado_textBrowser->setText("Alarma");
 
-        if(estado == "Idle") ui->textBrowser->setText("En espera");
-        if(estado == "Jog|") ui->textBrowser->setText("En movimiento");
-        if(estado == "Run|") ui->textBrowser->setText("En ejecución");
-        if(estado == "Hold") ui->textBrowser->setText("En pausa");
         if((Preparado) && (serialDeviceIsConnected == false))
         {
             X.Coordenada_tiempo_act = mpx.cap(1);
             Z.Coordenada_tiempo_act = mpx.cap(3);
             Y.Coordenada_tiempo_act = mpx.cap(2);
+
             qDebug() << X.Coordenada_tiempo_act;
         }
+        if((mpx.cap(1) == "500.000") && (mpx.cap(2) == "500.000") && ui->Progreso_Gcode->value() == 75 && Centro_bandera == true)
+        {
+            ui->Progreso_Gcode->setValue(100);
+            QMessageBox Mensaje;
+            Mensaje.setText("Trabajo finalizado.");
+            Mensaje.setButtonText(1,"Continuar");
+            Mensaje.exec();
 
+            ui->Progreso_Gcode->setValue(0);
+            Centro_bandera = false;
+        }
+        if((mpx.cap(1) == "-0.000") && (mpx.cap(2) == "-0.000") && Cero_bandera == true)
+        {
+            ui->Progreso_Gcode->setValue(100);
+            QMessageBox Mensaje;
+            Mensaje.setText("Finalizado.");
+            Mensaje.setButtonText(1,"Continuar");
+            Mensaje.exec();
+
+            ui->Progreso_Gcode->setValue(0);
+            Cero_bandera = false;
+        }
     }
     else {
-        if((X.Coordenada_est == X.Coordenada_tiempo_act) || (Y.Coordenada_est == Y.Coordenada_tiempo_act) || (Z.Coordenada_est == Z.Coordenada_tiempo_act))
+        /*if((X.Coordenada_est == X.Coordenada_tiempo_act) || (Y.Coordenada_est == Y.Coordenada_tiempo_act) || (Z.Coordenada_est == Z.Coordenada_tiempo_act))
         {
 
             Preparado = false;
             //tiempo = 20;
         }
-        else paridad_envio = "Noenvio";
+        else
+        {*/
+            paridad_envio = "Noenvio";
+            tiempo = 0;
+        //}
     }
 }
 
@@ -360,10 +392,11 @@ void MainWindow::on_Y_negativo_clicked()
 void MainWindow::on_X_positivo_clicked()
 {
     Coordenadas X;
+
     QString comando = "$J=G91X";
     QString size = QString::number(Tam_paso);
-    QString feedrate_number = QString::number(Feedrate_size_slicer);
-    X.Coordenada_est = mpx.cap(2) + size;
+    QString feedrate_number = QString::number(Feedrate_size_slicer); 
+    X.Coordenada_est = size + X.Coordenada_tiempo_act;
     qDebug() << X.Coordenada_est;
     if(Tam_paso <= 0)
     {
@@ -533,13 +566,17 @@ void MainWindow::on_pushButton_7_clicked()
 
 void MainWindow::on_Cero_clicked()
 {
+    Cero_bandera = true;
     QString comando1 = "G91Z5";
     QString comando2 = "G90X0Y0";
     QString comando3 = "G91Z-5";
+    ui->Progreso_Gcode->setValue(0);
     usbDevice->write((comando1 + "\r\n").toLatin1());
     ui->Terminal->setText(comando1 + "\r\n");
+    ui->Progreso_Gcode->setValue(25);
     usbDevice->write((comando2 + "\r\n").toLatin1());
     ui->Terminal->setText(comando2 + "\r\n");
+    ui->Progreso_Gcode->setValue(75);
     usbDevice->write((comando3 + "\r\n").toLatin1());
     ui->Terminal->setText(comando3 + "\r\n");
 }
@@ -777,10 +814,7 @@ void MainWindow::on_Cero_X_clicked()
     ui->Terminal->setText(comando + "\r\n");
 }
 
-void MainWindow::on_pushButton_3_clicked()
-{
 
-}
 
 void MainWindow::on_radioButton_toggled(bool checked)
 {
@@ -836,3 +870,20 @@ void MainWindow::on_radioButton_4_toggled(bool checked)
     }
 }
 
+
+void MainWindow::on_Centro_clicked()
+{
+    Centro_bandera = true;
+    QString comando1 = "G91Z25";
+    QString comando2 = "G90X500Y500";
+    ui->Progreso_Gcode->setValue(0);
+    usbDevice->write((comando1 + "\r\n").toLatin1());
+    ui->Progreso_Gcode->setValue(25);
+    ui->Terminal->setText(comando1 + "\r\n");
+    ui->Progreso_Gcode->setValue(50);
+    usbDevice->write((comando2 + "\r\n").toLatin1());
+    ui->Progreso_Gcode->setValue(75);
+    ui->Terminal->setText(comando2 + "\r\n");
+
+
+}

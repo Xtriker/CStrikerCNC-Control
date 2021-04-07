@@ -701,7 +701,7 @@
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="Probing">
               <property name="maximumSize">
                <size>
                 <width>80</width>
@@ -721,7 +721,7 @@
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_3">
+             <widget class="QPushButton" name="Centro">
               <property name="maximumSize">
                <size>
                 <width>80</width>
@@ -1090,7 +1090,7 @@
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
            <item row="1" column="1">
-            <widget class="QLabel" name="label_4">
+            <widget class="QLabel" name="Coordena_de_la_maquina">
              <property name="maximumSize">
               <size>
                <width>300</width>
@@ -1111,7 +1111,7 @@
             </widget>
            </item>
            <item row="0" column="0">
-            <widget class="QLabel" name="label_5">
+            <widget class="QLabel" name="Label_estado">
              <property name="font">
               <font>
                <family>Iosevka</family>
@@ -1126,7 +1126,7 @@
             </widget>
            </item>
            <item row="2" column="0">
-            <widget class="QLabel" name="label">
+            <widget class="QLabel" name="Label_X">
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -1154,7 +1154,7 @@
             </widget>
            </item>
            <item row="4" column="0">
-            <widget class="QLabel" name="label_8">
+            <widget class="QLabel" name="Label_Z">
              <property name="maximumSize">
               <size>
                <width>40</width>
@@ -1172,7 +1172,7 @@
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QTextBrowser" name="textBrowser">
+            <widget class="QTextBrowser" name="Estado_textBrowser">
              <property name="maximumSize">
               <size>
                <width>300</width>
@@ -1201,7 +1201,7 @@
             </widget>
            </item>
            <item row="3" column="0">
-            <widget class="QLabel" name="label_7">
+            <widget class="QLabel" name="Label_Y">
              <property name="maximumSize">
               <size>
                <width>40</width>

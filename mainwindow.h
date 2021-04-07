@@ -17,6 +17,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+
 public slots:
     void Camara_IP();
     void Recepcion_Cordenadas();
@@ -60,11 +61,13 @@ private slots:
     void on_Continuar_clicked();
     void on_Reset_clicked();
     void on_Cero_X_clicked();
-    void on_pushButton_3_clicked();
+
     void on_radioButton_toggled(bool checked);
     void on_radioButton_2_toggled(bool checked);
     void on_radioButton_3_clicked(bool checked);
     void on_radioButton_4_toggled(bool checked);
+    void on_Centro_clicked();
+
 private:
     void getAvalilableSerialDevices();
     bool Encender_laser = false;

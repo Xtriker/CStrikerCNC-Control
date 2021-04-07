@@ -103,8 +103,8 @@ public:
     QWidget *Lectura;
     QHBoxLayout *horizontalLayout_7;
     QVBoxLayout *verticalLayout_2;
-    QPushButton *pushButton_2;
-    QPushButton *pushButton_3;
+    QPushButton *Probing;
+    QPushButton *Centro;
     QPushButton *pushButton_4;
     QVBoxLayout *verticalLayout_7;
     QProgressBar *Progreso_Gcode;
@@ -129,14 +129,14 @@ public:
     QPushButton *Y_negativo;
     QFrame *Coordenadas;
     QGridLayout *gridLayout_3;
-    QLabel *label_4;
-    QLabel *label_5;
-    QLabel *label;
+    QLabel *Coordena_de_la_maquina;
+    QLabel *Label_estado;
+    QLabel *Label_X;
     QLCDNumber *MPosY;
-    QLabel *label_8;
-    QTextBrowser *textBrowser;
+    QLabel *Label_Z;
+    QTextBrowser *Estado_textBrowser;
     QLCDNumber *MPosZ;
-    QLabel *label_7;
+    QLabel *Label_Y;
     QLCDNumber *MPosX;
     QSpacerItem *horizontalSpacer_2;
     QLCDNumber *Valor_potencia_laser;
@@ -523,21 +523,21 @@ public:
         horizontalLayout_7->setObjectName(QStringLiteral("horizontalLayout_7"));
         verticalLayout_2 = new QVBoxLayout();
         verticalLayout_2->setObjectName(QStringLiteral("verticalLayout_2"));
-        pushButton_2 = new QPushButton(Lectura);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setMaximumSize(QSize(80, 50));
+        Probing = new QPushButton(Lectura);
+        Probing->setObjectName(QStringLiteral("Probing"));
+        Probing->setMaximumSize(QSize(80, 50));
         QIcon icon11;
         icon11.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/zoom-in-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_2->setIcon(icon11);
+        Probing->setIcon(icon11);
 
-        verticalLayout_2->addWidget(pushButton_2);
+        verticalLayout_2->addWidget(Probing);
 
-        pushButton_3 = new QPushButton(Lectura);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setMaximumSize(QSize(80, 50));
-        pushButton_3->setIcon(icon11);
+        Centro = new QPushButton(Lectura);
+        Centro->setObjectName(QStringLiteral("Centro"));
+        Centro->setMaximumSize(QSize(80, 50));
+        Centro->setIcon(icon11);
 
-        verticalLayout_2->addWidget(pushButton_3);
+        verticalLayout_2->addWidget(Centro);
 
         pushButton_4 = new QPushButton(Lectura);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
@@ -718,25 +718,25 @@ public:
         Coordenadas->setFrameShadow(QFrame::Raised);
         gridLayout_3 = new QGridLayout(Coordenadas);
         gridLayout_3->setObjectName(QStringLiteral("gridLayout_3"));
-        label_4 = new QLabel(Coordenadas);
-        label_4->setObjectName(QStringLiteral("label_4"));
-        label_4->setMaximumSize(QSize(300, 20));
-        label_4->setFont(font3);
+        Coordena_de_la_maquina = new QLabel(Coordenadas);
+        Coordena_de_la_maquina->setObjectName(QStringLiteral("Coordena_de_la_maquina"));
+        Coordena_de_la_maquina->setMaximumSize(QSize(300, 20));
+        Coordena_de_la_maquina->setFont(font3);
 
-        gridLayout_3->addWidget(label_4, 1, 1, 1, 1);
+        gridLayout_3->addWidget(Coordena_de_la_maquina, 1, 1, 1, 1);
 
-        label_5 = new QLabel(Coordenadas);
-        label_5->setObjectName(QStringLiteral("label_5"));
-        label_5->setFont(font1);
+        Label_estado = new QLabel(Coordenadas);
+        Label_estado->setObjectName(QStringLiteral("Label_estado"));
+        Label_estado->setFont(font1);
 
-        gridLayout_3->addWidget(label_5, 0, 0, 1, 1);
+        gridLayout_3->addWidget(Label_estado, 0, 0, 1, 1);
 
-        label = new QLabel(Coordenadas);
-        label->setObjectName(QStringLiteral("label"));
-        label->setMaximumSize(QSize(40, 60));
-        label->setFont(font2);
+        Label_X = new QLabel(Coordenadas);
+        Label_X->setObjectName(QStringLiteral("Label_X"));
+        Label_X->setMaximumSize(QSize(40, 60));
+        Label_X->setFont(font2);
 
-        gridLayout_3->addWidget(label, 2, 0, 1, 1);
+        gridLayout_3->addWidget(Label_X, 2, 0, 1, 1);
 
         MPosY = new QLCDNumber(Coordenadas);
         MPosY->setObjectName(QStringLiteral("MPosY"));
@@ -745,18 +745,18 @@ public:
 
         gridLayout_3->addWidget(MPosY, 3, 1, 1, 1);
 
-        label_8 = new QLabel(Coordenadas);
-        label_8->setObjectName(QStringLiteral("label_8"));
-        label_8->setMaximumSize(QSize(40, 60));
-        label_8->setFont(font2);
+        Label_Z = new QLabel(Coordenadas);
+        Label_Z->setObjectName(QStringLiteral("Label_Z"));
+        Label_Z->setMaximumSize(QSize(40, 60));
+        Label_Z->setFont(font2);
 
-        gridLayout_3->addWidget(label_8, 4, 0, 1, 1);
+        gridLayout_3->addWidget(Label_Z, 4, 0, 1, 1);
 
-        textBrowser = new QTextBrowser(Coordenadas);
-        textBrowser->setObjectName(QStringLiteral("textBrowser"));
-        textBrowser->setMaximumSize(QSize(300, 30));
+        Estado_textBrowser = new QTextBrowser(Coordenadas);
+        Estado_textBrowser->setObjectName(QStringLiteral("Estado_textBrowser"));
+        Estado_textBrowser->setMaximumSize(QSize(300, 30));
 
-        gridLayout_3->addWidget(textBrowser, 0, 1, 1, 1);
+        gridLayout_3->addWidget(Estado_textBrowser, 0, 1, 1, 1);
 
         MPosZ = new QLCDNumber(Coordenadas);
         MPosZ->setObjectName(QStringLiteral("MPosZ"));
@@ -767,12 +767,12 @@ public:
 
         gridLayout_3->addWidget(MPosZ, 4, 1, 1, 1);
 
-        label_7 = new QLabel(Coordenadas);
-        label_7->setObjectName(QStringLiteral("label_7"));
-        label_7->setMaximumSize(QSize(40, 60));
-        label_7->setFont(font2);
+        Label_Y = new QLabel(Coordenadas);
+        Label_Y->setObjectName(QStringLiteral("Label_Y"));
+        Label_Y->setMaximumSize(QSize(40, 60));
+        Label_Y->setFont(font2);
 
-        gridLayout_3->addWidget(label_7, 3, 0, 1, 1);
+        gridLayout_3->addWidget(Label_Y, 3, 0, 1, 1);
 
         MPosX = new QLCDNumber(Coordenadas);
         MPosX->setObjectName(QStringLiteral("MPosX"));
@@ -909,13 +909,13 @@ public:
         Enviar->setShortcut(QApplication::translate("MainWindow", "Enter", nullptr));
 #endif // QT_NO_SHORTCUT
         Secundario->setTabText(Secundario->indexOf(Maquina), QApplication::translate("MainWindow", "Tab 2", nullptr));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Probing", nullptr));
+        Probing->setText(QApplication::translate("MainWindow", "Probing", nullptr));
 #ifndef QT_NO_SHORTCUT
-        pushButton_2->setShortcut(QApplication::translate("MainWindow", "D", nullptr));
+        Probing->setShortcut(QApplication::translate("MainWindow", "D", nullptr));
 #endif // QT_NO_SHORTCUT
-        pushButton_3->setText(QApplication::translate("MainWindow", "Centro", nullptr));
+        Centro->setText(QApplication::translate("MainWindow", "Centro", nullptr));
 #ifndef QT_NO_SHORTCUT
-        pushButton_3->setShortcut(QApplication::translate("MainWindow", "C", nullptr));
+        Centro->setShortcut(QApplication::translate("MainWindow", "C", nullptr));
 #endif // QT_NO_SHORTCUT
         pushButton_4->setText(QApplication::translate("MainWindow", "Macro 3", nullptr));
         Enviar_2->setText(QApplication::translate("MainWindow", "Enviar", nullptr));
@@ -946,11 +946,11 @@ public:
 #ifndef QT_NO_SHORTCUT
         Y_negativo->setShortcut(QApplication::translate("MainWindow", "K", nullptr));
 #endif // QT_NO_SHORTCUT
-        label_4->setText(QApplication::translate("MainWindow", "Coordenadas de la maquina", nullptr));
-        label_5->setText(QApplication::translate("MainWindow", "Estado", nullptr));
-        label->setText(QApplication::translate("MainWindow", "| X |", nullptr));
-        label_8->setText(QApplication::translate("MainWindow", "| Z |", nullptr));
-        label_7->setText(QApplication::translate("MainWindow", "| Y |", nullptr));
+        Coordena_de_la_maquina->setText(QApplication::translate("MainWindow", "Coordenadas de la maquina", nullptr));
+        Label_estado->setText(QApplication::translate("MainWindow", "Estado", nullptr));
+        Label_X->setText(QApplication::translate("MainWindow", "| X |", nullptr));
+        Label_Z->setText(QApplication::translate("MainWindow", "| Z |", nullptr));
+        Label_Y->setText(QApplication::translate("MainWindow", "| Y |", nullptr));
         menuArchivo->setTitle(QApplication::translate("MainWindow", "A&rchivo", nullptr));
         menuAyuda->setTitle(QApplication::translate("MainWindow", "A&yuda", nullptr));
     } // retranslateUi
