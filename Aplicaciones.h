@@ -19,8 +19,17 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDir>
+
 enum{
     Camara_IP,
     Camara_Web
 };
+
+class Coordenadas {
+  public:
+    QString Coordenada_est;
+    QString Coordenada_tiempo_act;
+};
 #endif // APLICACIONES_H
+
+

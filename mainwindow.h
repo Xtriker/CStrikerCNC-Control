@@ -18,7 +18,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 public slots:
-    void funcionCronometro();
+    void Camara_IP();
     void Recepcion_Cordenadas();
     void serialRead();
     void serialWrite(QString message);
@@ -39,57 +39,32 @@ private slots:
     void on_dial_valueChanged(int value);
     void on_dial_2_valueChanged(int value);
     void on_pushButton_5_clicked();
-
     void on_horizontalSlider_valueChanged(int value);
-
     void on_pushButton_7_clicked();
-
     void on_Cero_clicked();
-
     void on_Hold_clicked();
-
     void on_pushButton_6_clicked();
     void on_pushButton_clicked();
     void on_Guardar_clicked();
-
     void on_actionAcerca_triggered();
-
     void on_actionSalir_triggered();
-
     void on_Capturar_imagen_clicked();
-
     void on_Enviar_2_clicked();
     void Enviar_archivo();
     void Despliegue_Cordenadas();
-
-
     void on_Cero_Y_clicked();
-
-
     void on_Cero_XY_clicked();
-
     void on_Cero_Z_clicked();
-
     void on_Home_X_clicked();
-
     void on_Home_Y_clicked();
-
     void on_Continuar_clicked();
-
     void on_Reset_clicked();
-
     void on_Cero_X_clicked();
-
     void on_pushButton_3_clicked();
-
     void on_radioButton_toggled(bool checked);
-
     void on_radioButton_2_toggled(bool checked);
-
     void on_radioButton_3_clicked(bool checked);
-
     void on_radioButton_4_toggled(bool checked);
-
 private:
     void getAvalilableSerialDevices();
     bool Encender_laser = false;
