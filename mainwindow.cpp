@@ -75,9 +75,10 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     //Inicio de la configuracion de la ventana
-
+    this->setWindowTitle("CStrikerControl");
     //Crear una variable para la configuración del cronometro
     QTimer *cronometro = new QTimer(this);
 
@@ -118,6 +119,7 @@ MainWindow::MainWindow(QWidget *parent)
 MainWindow::~MainWindow()
 {
     //Se borra la ventana
+
     delete ui;
     //delete usbDevice;
 }

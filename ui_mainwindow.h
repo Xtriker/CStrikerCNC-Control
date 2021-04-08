@@ -841,7 +841,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        Secundario->setCurrentIndex(1);
+        Secundario->setCurrentIndex(2);
         Cero->setDefault(false);
 
 
