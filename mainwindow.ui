@@ -25,6 +25,12 @@
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
+        <property name="minimumSize">
+         <size>
+          <width>750</width>
+          <height>500</height>
+         </size>
+        </property>
         <property name="maximumSize">
          <size>
           <width>999999</width>
@@ -43,7 +49,7 @@
          <cursorShape>ArrowCursor</cursorShape>
         </property>
         <property name="currentIndex">
-         <number>1</number>
+         <number>2</number>
         </property>
         <widget class="QWidget" name="Camara">
          <attribute name="icon">
@@ -147,10 +153,10 @@
                    </size>
                   </property>
                   <property name="maximum">
-                   <number>850</number>
+                   <number>2200</number>
                   </property>
                   <property name="value">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                   <property name="invertedAppearance">
                    <bool>false</bool>
@@ -183,7 +189,7 @@
                    <number>100</number>
                   </property>
                   <property name="value">
-                   <number>1</number>
+                   <number>0</number>
                   </property>
                  </widget>
                 </item>
@@ -268,6 +274,12 @@
                 </property>
                 <property name="shortcut">
                  <string>3</string>
+                </property>
+                <property name="checkable">
+                 <bool>true</bool>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -505,9 +517,15 @@
                <layout class="QGridLayout" name="gridLayout_2">
                 <item row="3" column="1">
                  <widget class="QPushButton" name="Home_Y">
+                  <property name="sizeIncrement">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
-                    <family>Hack [SRC]</family>
+                    <family>Iosevka</family>
                    </font>
                   </property>
                   <property name="text">
@@ -515,7 +533,7 @@
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/remove.svg</normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/remove.svg</iconset>
+                    <normaloff>../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-home.svg</normaloff>../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-home.svg</iconset>
                   </property>
                   <property name="shortcut">
                    <string>T</string>
@@ -528,9 +546,6 @@
                    <font>
                     <family>Iosevka</family>
                    </font>
-                  </property>
-                  <property name="text">
-                   <string>Continuar</string>
                   </property>
                   <property name="icon">
                    <iconset>
@@ -567,9 +582,6 @@
                     <family>Iosevka</family>
                    </font>
                   </property>
-                  <property name="text">
-                   <string>Pausar</string>
-                  </property>
                   <property name="icon">
                    <iconset>
                     <normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/player_pause.svg</normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/player_pause.svg</iconset>
@@ -581,8 +593,11 @@
                 </item>
                 <item row="3" column="0">
                  <widget class="QPushButton" name="Reset">
-                  <property name="text">
-                   <string>Desbloquear</string>
+                  <property name="minimumSize">
+                   <size>
+                    <width>32</width>
+                    <height>32</height>
+                   </size>
                   </property>
                   <property name="icon">
                    <iconset>
@@ -591,24 +606,46 @@
                   <property name="shortcut">
                    <string>H</string>
                   </property>
+                  <property name="flat">
+                   <bool>false</bool>
+                  </property>
                  </widget>
                 </item>
                 <item row="0" column="0">
                  <widget class="QPushButton" name="Cero">
+                  <property name="minimumSize">
+                   <size>
+                    <width>24</width>
+                    <height>24</height>
+                   </size>
+                  </property>
                   <property name="font">
                    <font>
                     <family>Iosevka</family>
+                    <pointsize>10</pointsize>
                    </font>
-                  </property>
-                  <property name="text">
-                   <string>Cero</string>
                   </property>
                   <property name="icon">
                    <iconset>
-                    <normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/add.svg</normaloff>../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/add.svg</iconset>
+                    <normaloff>../../../../../usr/share/icons/Papirus-Light/24x24/actions/fcitx-fullwidth-active.svg</normaloff>../../../../../usr/share/icons/Papirus-Light/24x24/actions/fcitx-fullwidth-active.svg</iconset>
+                  </property>
+                  <property name="iconSize">
+                   <size>
+                    <width>16</width>
+                    <height>16</height>
+                   </size>
                   </property>
                   <property name="shortcut">
                    <string>U</string>
+                  </property>
+                  <property name="autoDefault">
+                   <bool>false</bool>
+                  </property>
+                  <property name="default">
+                   <bool>false</bool>
+                  </property>
+                  <property name="flat">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -622,6 +659,12 @@
            <layout class="QVBoxLayout" name="verticalLayout">
             <item>
              <widget class="QLineEdit" name="Terminal">
+              <property name="minimumSize">
+               <size>
+                <width>120</width>
+                <height>85</height>
+               </size>
+              </property>
               <property name="maximumSize">
                <size>
                 <width>9999999</width>
@@ -775,6 +818,9 @@
                 <width>9999999</width>
                 <height>16777215</height>
                </size>
+              </property>
+              <property name="cursor" stdset="0">
+               <cursorShape>IBeamCursor</cursorShape>
               </property>
              </widget>
             </item>

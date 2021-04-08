@@ -168,6 +168,7 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(Secundario->sizePolicy().hasHeightForWidth());
         Secundario->setSizePolicy(sizePolicy);
+        Secundario->setMinimumSize(QSize(750, 500));
         Secundario->setMaximumSize(QSize(999999, 999999));
         QFont font;
         font.setFamily(QStringLiteral("Iosevka"));
@@ -236,8 +237,8 @@ public:
         dial = new QDial(Maquina);
         dial->setObjectName(QStringLiteral("dial"));
         dial->setMaximumSize(QSize(200, 200));
-        dial->setMaximum(850);
-        dial->setValue(1);
+        dial->setMaximum(2200);
+        dial->setValue(0);
         dial->setInvertedAppearance(false);
 
         Grupo_Feedrate->addWidget(dial);
@@ -257,7 +258,7 @@ public:
         dial_2->setObjectName(QStringLiteral("dial_2"));
         dial_2->setMaximumSize(QSize(200, 200));
         dial_2->setMaximum(100);
-        dial_2->setValue(1);
+        dial_2->setValue(0);
 
         Grupo_Feedrate_2->addWidget(dial_2);
 
@@ -298,6 +299,8 @@ public:
         radioButton_3 = new QRadioButton(Maquina);
         radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
         radioButton_3->setFont(font2);
+        radioButton_3->setCheckable(true);
+        radioButton_3->setChecked(true);
 
         Controlesdial->addWidget(radioButton_3, 3, 0, 1, 1);
 
@@ -416,11 +419,10 @@ public:
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         Home_Y = new QPushButton(Maquina);
         Home_Y->setObjectName(QStringLiteral("Home_Y"));
-        QFont font5;
-        font5.setFamily(QStringLiteral("Hack [SRC]"));
-        Home_Y->setFont(font5);
+        Home_Y->setSizeIncrement(QSize(24, 24));
+        Home_Y->setFont(font2);
         QIcon icon4;
-        icon4.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/remove.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        icon4.addFile(QStringLiteral("../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-home.svg"), QSize(), QIcon::Normal, QIcon::Off);
         Home_Y->setIcon(icon4);
 
         gridLayout_2->addWidget(Home_Y, 3, 1, 1, 1);
@@ -454,16 +456,27 @@ public:
 
         Reset = new QPushButton(Maquina);
         Reset->setObjectName(QStringLiteral("Reset"));
+        Reset->setMinimumSize(QSize(32, 32));
         QIcon icon8;
         icon8.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/unlock.svg"), QSize(), QIcon::Normal, QIcon::Off);
         Reset->setIcon(icon8);
+        Reset->setFlat(false);
 
         gridLayout_2->addWidget(Reset, 3, 0, 1, 1);
 
         Cero = new QPushButton(Maquina);
         Cero->setObjectName(QStringLiteral("Cero"));
-        Cero->setFont(font2);
-        Cero->setIcon(icon6);
+        Cero->setMinimumSize(QSize(24, 24));
+        QFont font5;
+        font5.setFamily(QStringLiteral("Iosevka"));
+        font5.setPointSize(10);
+        Cero->setFont(font5);
+        QIcon icon9;
+        icon9.addFile(QStringLiteral("../../../../../usr/share/icons/Papirus-Light/24x24/actions/fcitx-fullwidth-active.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Cero->setIcon(icon9);
+        Cero->setIconSize(QSize(16, 16));
+        Cero->setAutoDefault(false);
+        Cero->setFlat(false);
 
         gridLayout_2->addWidget(Cero, 0, 0, 1, 1);
 
@@ -480,6 +493,7 @@ public:
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
         Terminal = new QLineEdit(Maquina);
         Terminal->setObjectName(QStringLiteral("Terminal"));
+        Terminal->setMinimumSize(QSize(120, 85));
         Terminal->setMaximumSize(QSize(9999999, 9999999));
 
         verticalLayout->addWidget(Terminal);
@@ -502,9 +516,9 @@ public:
         font6.setFamily(QStringLiteral("Iosevka"));
         font6.setPointSize(11);
         Enviar->setFont(font6);
-        QIcon icon9;
-        icon9.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/mail-forward-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Enviar->setIcon(icon9);
+        QIcon icon10;
+        icon10.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/mail-forward-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Enviar->setIcon(icon10);
 
         horizontalLayout_2->addWidget(Enviar);
 
@@ -514,9 +528,9 @@ public:
 
         verticalLayout_8->addLayout(verticalLayout);
 
-        QIcon icon10;
-        icon10.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/renamed-edit-find-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Secundario->addTab(Maquina, icon10, QString());
+        QIcon icon11;
+        icon11.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/renamed-edit-find-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Secundario->addTab(Maquina, icon11, QString());
         Lectura = new QWidget();
         Lectura->setObjectName(QStringLiteral("Lectura"));
         horizontalLayout_7 = new QHBoxLayout(Lectura);
@@ -526,23 +540,23 @@ public:
         Probing = new QPushButton(Lectura);
         Probing->setObjectName(QStringLiteral("Probing"));
         Probing->setMaximumSize(QSize(80, 50));
-        QIcon icon11;
-        icon11.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/zoom-in-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Probing->setIcon(icon11);
+        QIcon icon12;
+        icon12.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/zoom-in-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Probing->setIcon(icon12);
 
         verticalLayout_2->addWidget(Probing);
 
         Centro = new QPushButton(Lectura);
         Centro->setObjectName(QStringLiteral("Centro"));
         Centro->setMaximumSize(QSize(80, 50));
-        Centro->setIcon(icon11);
+        Centro->setIcon(icon12);
 
         verticalLayout_2->addWidget(Centro);
 
         pushButton_4 = new QPushButton(Lectura);
         pushButton_4->setObjectName(QStringLiteral("pushButton_4"));
         pushButton_4->setMaximumSize(QSize(80, 50));
-        pushButton_4->setIcon(icon11);
+        pushButton_4->setIcon(icon12);
 
         verticalLayout_2->addWidget(pushButton_4);
 
@@ -560,6 +574,7 @@ public:
         plainTextEdit = new QPlainTextEdit(Lectura);
         plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
         plainTextEdit->setMaximumSize(QSize(9999999, 16777215));
+        plainTextEdit->viewport()->setProperty("cursor", QVariant(QCursor(Qt::IBeamCursor)));
 
         verticalLayout_7->addWidget(plainTextEdit);
 
@@ -567,26 +582,26 @@ public:
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         Enviar_2 = new QPushButton(Lectura);
         Enviar_2->setObjectName(QStringLiteral("Enviar_2"));
-        QIcon icon12;
-        icon12.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/object-select-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Enviar_2->setIcon(icon12);
+        QIcon icon13;
+        icon13.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/object-select-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Enviar_2->setIcon(icon13);
 
         horizontalLayout->addWidget(Enviar_2);
 
         Guardar = new QPushButton(Lectura);
         Guardar->setObjectName(QStringLiteral("Guardar"));
-        QIcon icon13;
-        icon13.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/document-save-as-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Guardar->setIcon(icon13);
+        QIcon icon14;
+        icon14.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/document-save-as-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Guardar->setIcon(icon14);
 
         horizontalLayout->addWidget(Guardar);
 
         pushButton = new QPushButton(Lectura);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setMaximumSize(QSize(16777215, 16777215));
-        QIcon icon14;
-        icon14.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/document-open-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton->setIcon(icon14);
+        QIcon icon15;
+        icon15.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/document-open-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton->setIcon(icon15);
 
         horizontalLayout->addWidget(pushButton);
 
@@ -596,9 +611,9 @@ public:
 
         horizontalLayout_7->addLayout(verticalLayout_7);
 
-        QIcon icon15;
-        icon15.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/view-grid-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Secundario->addTab(Lectura, icon15, QString());
+        QIcon icon16;
+        icon16.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/view-grid-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Secundario->addTab(Lectura, icon16, QString());
 
         horizontalLayout_3->addWidget(Secundario);
 
@@ -628,18 +643,18 @@ public:
         pushButton_7 = new QPushButton(centralwidget);
         pushButton_7->setObjectName(QStringLiteral("pushButton_7"));
         pushButton_7->setMaximumSize(QSize(40, 60));
-        QIcon icon16;
-        icon16.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Dark/24x24/apps/display-brightness.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_7->setIcon(icon16);
+        QIcon icon17;
+        icon17.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Dark/24x24/apps/display-brightness.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_7->setIcon(icon17);
 
         gridLayout_4->addWidget(pushButton_7, 6, 2, 1, 1);
 
         pushButton_5 = new QPushButton(centralwidget);
         pushButton_5->setObjectName(QStringLiteral("pushButton_5"));
         pushButton_5->setMaximumSize(QSize(40, 60));
-        QIcon icon17;
-        icon17.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Dark/24x24/apps/display.im6.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        pushButton_5->setIcon(icon17);
+        QIcon icon18;
+        icon18.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Dark/24x24/apps/display.im6.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        pushButton_5->setIcon(icon18);
 
         gridLayout_4->addWidget(pushButton_5, 6, 0, 1, 1);
 
@@ -652,9 +667,9 @@ public:
         Z_positivo = new QPushButton(centralwidget);
         Z_positivo->setObjectName(QStringLiteral("Z_positivo"));
         Z_positivo->setMaximumSize(QSize(120, 120));
-        QIcon icon18;
-        icon18.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/go-top-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Z_positivo->setIcon(icon18);
+        QIcon icon19;
+        icon19.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/go-top-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Z_positivo->setIcon(icon19);
 
         gridLayout->addWidget(Z_positivo, 0, 3, 1, 1);
 
@@ -662,9 +677,9 @@ public:
         Y_positivo->setObjectName(QStringLiteral("Y_positivo"));
         Y_positivo->setEnabled(true);
         Y_positivo->setMaximumSize(QSize(120, 120));
-        QIcon icon19;
-        icon19.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus/24x24/actions/go-up.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Y_positivo->setIcon(icon19);
+        QIcon icon20;
+        icon20.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus/24x24/actions/go-up.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Y_positivo->setIcon(icon20);
         Y_positivo->setIconSize(QSize(24, 24));
 
         gridLayout->addWidget(Y_positivo, 0, 1, 1, 1);
@@ -672,9 +687,9 @@ public:
         X_negativo = new QPushButton(centralwidget);
         X_negativo->setObjectName(QStringLiteral("X_negativo"));
         X_negativo->setMaximumSize(QSize(120, 120));
-        QIcon icon20;
-        icon20.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus/24x24/actions/go-left.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        X_negativo->setIcon(icon20);
+        QIcon icon21;
+        icon21.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus/24x24/actions/go-left.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        X_negativo->setIcon(icon21);
         X_negativo->setIconSize(QSize(24, 24));
 
         gridLayout->addWidget(X_negativo, 1, 0, 1, 1);
@@ -682,18 +697,18 @@ public:
         Z_negativo = new QPushButton(centralwidget);
         Z_negativo->setObjectName(QStringLiteral("Z_negativo"));
         Z_negativo->setMaximumSize(QSize(120, 120));
-        QIcon icon21;
-        icon21.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/go-bottom-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Z_negativo->setIcon(icon21);
+        QIcon icon22;
+        icon22.addFile(QStringLiteral("../../../../../../usr/share/icons/Numix-Light/scalable/actions/go-bottom-symbolic.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Z_negativo->setIcon(icon22);
 
         gridLayout->addWidget(Z_negativo, 2, 3, 1, 1);
 
         X_positivo = new QPushButton(centralwidget);
         X_positivo->setObjectName(QStringLiteral("X_positivo"));
         X_positivo->setMaximumSize(QSize(120, 120));
-        QIcon icon22;
-        icon22.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-next.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        X_positivo->setIcon(icon22);
+        QIcon icon23;
+        icon23.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-next.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        X_positivo->setIcon(icon23);
         X_positivo->setIconSize(QSize(24, 24));
 
         gridLayout->addWidget(X_positivo, 1, 2, 1, 1);
@@ -701,9 +716,9 @@ public:
         Y_negativo = new QPushButton(centralwidget);
         Y_negativo->setObjectName(QStringLiteral("Y_negativo"));
         Y_negativo->setMaximumSize(QSize(120, 120));
-        QIcon icon23;
-        icon23.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-down.svg"), QSize(), QIcon::Normal, QIcon::Off);
-        Y_negativo->setIcon(icon23);
+        QIcon icon24;
+        icon24.addFile(QStringLiteral("../../../../../../../../usr/share/icons/Papirus-Light/24x24/actions/go-down.svg"), QSize(), QIcon::Normal, QIcon::Off);
+        Y_negativo->setIcon(icon24);
         Y_negativo->setIconSize(QSize(24, 24));
 
         gridLayout->addWidget(Y_negativo, 2, 1, 1, 1);
@@ -827,6 +842,7 @@ public:
         retranslateUi(MainWindow);
 
         Secundario->setCurrentIndex(1);
+        Cero->setDefault(false);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -884,7 +900,6 @@ public:
 #ifndef QT_NO_SHORTCUT
         Home_Y->setShortcut(QApplication::translate("MainWindow", "T", nullptr));
 #endif // QT_NO_SHORTCUT
-        Continuar->setText(QApplication::translate("MainWindow", "Continuar", nullptr));
 #ifndef QT_NO_SHORTCUT
         Continuar->setShortcut(QApplication::translate("MainWindow", "M", nullptr));
 #endif // QT_NO_SHORTCUT
@@ -892,15 +907,12 @@ public:
 #ifndef QT_NO_SHORTCUT
         Home_X->setShortcut(QApplication::translate("MainWindow", "R", nullptr));
 #endif // QT_NO_SHORTCUT
-        Hold->setText(QApplication::translate("MainWindow", "Pausar", nullptr));
 #ifndef QT_NO_SHORTCUT
         Hold->setShortcut(QApplication::translate("MainWindow", "F", nullptr));
 #endif // QT_NO_SHORTCUT
-        Reset->setText(QApplication::translate("MainWindow", "Desbloquear", nullptr));
 #ifndef QT_NO_SHORTCUT
         Reset->setShortcut(QApplication::translate("MainWindow", "H", nullptr));
 #endif // QT_NO_SHORTCUT
-        Cero->setText(QApplication::translate("MainWindow", "Cero", nullptr));
 #ifndef QT_NO_SHORTCUT
         Cero->setShortcut(QApplication::translate("MainWindow", "U", nullptr));
 #endif // QT_NO_SHORTCUT

@@ -68,6 +68,8 @@ private slots:
     void on_radioButton_4_toggled(bool checked);
     void on_Centro_clicked();
 
+    void on_Probing_clicked();
+
 private:
     void getAvalilableSerialDevices();
     bool Encender_laser = false;

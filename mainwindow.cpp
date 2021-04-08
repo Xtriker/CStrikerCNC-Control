@@ -10,7 +10,7 @@ static uint8_t tiempo = 0u;
 static QString valor_PWM;
 using namespace cv;
 static QString  nombre_archivo_global;
-static bool Envio_bandera = false, Preparado = false, Centro_bandera = false, Cero_bandera = false;
+static bool Envio_bandera = false, Preparado = false, Centro_bandera = false, Cero_bandera = false, Probing_bandera = false;
 static bool bandera_01mm= false, bandera_05mm=false,  bandera_100mm= false, bandera_1000mm= false;
 static Mat imagen1;
 static Mat imagen1_chica;
@@ -29,7 +29,7 @@ void MainWindow::Recepcion_Cordenadas()
     {
        QString comando = "?";
        usbDevice->write((comando + "\r").toLatin1());
-       qDebug() << comando << tiempo;
+       //qDebug() << comando << tiempo;
     }
     /*else {
 
@@ -108,7 +108,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     serialDeviceIsConnected = false;
     getAvalilableSerialDevices();
-
+    ui->Estado_textBrowser->setText("No conectado");
+    ui->Terminal->setText("No conectado");
 
     //Fin de la configuracion de la ventana
 
@@ -163,11 +164,14 @@ void MainWindow::on_Conectar_clicked()
             //qDebug() << "Connection to: "<< usbDevice->portName() << " " << deviceDescription << " not connected";
             //qDebug() <<"         Error: "<<usbDevice->errorString();
             serialDeviceIsConnected = false;
+
         }
     }
     else
     {
         //qDebug() << "Can't connect, another device is connected";
+        ui->Estado_textBrowser->setText("No conectado");
+        ui->Terminal->setText("No conectado");
     }
 }
 
@@ -271,7 +275,7 @@ void MainWindow::CordenadasMaquina()
     //static QRegExp mpx("WPos:([^,]*),([^,]*),([^,^>^|]*)");
     if(estado.toUtf8() == "k")
     {
-        qDebug() << "Correcto";
+        //qDebug() << "Correcto";
         paridad_envio = "Correcto";
         ui->Terminal->setText(paridad_envio + "\n");
     }
@@ -292,7 +296,7 @@ void MainWindow::CordenadasMaquina()
             Z.Coordenada_tiempo_act = mpx.cap(3);
             Y.Coordenada_tiempo_act = mpx.cap(2);
 
-            qDebug() << X.Coordenada_tiempo_act;
+            //qDebug() << X.Coordenada_tiempo_act;
         }
         if((mpx.cap(1) == "500.000") && (mpx.cap(2) == "500.000") && ui->Progreso_Gcode->value() == 75 && Centro_bandera == true)
         {
@@ -315,6 +319,17 @@ void MainWindow::CordenadasMaquina()
 
             ui->Progreso_Gcode->setValue(0);
             Cero_bandera = false;
+        }
+        if((mpx.cap(3) == "-0.000") && Probing_bandera == true)
+        {
+            ui->Progreso_Gcode->setValue(100);
+            QMessageBox Mensaje;
+            Mensaje.setText("Finalizado.");
+            Mensaje.setButtonText(1,"Continuar");
+            Mensaje.exec();
+
+            ui->Progreso_Gcode->setValue(0);
+            Probing_bandera = false;
         }
     }
     else {
@@ -347,7 +362,7 @@ void MainWindow::on_Y_positivo_clicked()
     QString size = QString::number(Tam_paso);
     QString feedrate_number = QString::number(Feedrate_size_slicer);
     Y.Coordenada_est = mpx.cap(2) + size;
-    qDebug() << Y.Coordenada_est;
+    //qDebug() << Y.Coordenada_est;
     if(Tam_paso <= 0)
     {
         QMessageBox::warning(this,"Pasos","Seleccione un valor mayor a 0");
@@ -397,7 +412,7 @@ void MainWindow::on_X_positivo_clicked()
     QString size = QString::number(Tam_paso);
     QString feedrate_number = QString::number(Feedrate_size_slicer); 
     X.Coordenada_est = size + X.Coordenada_tiempo_act;
-    qDebug() << X.Coordenada_est;
+    //qDebug() << X.Coordenada_est;
     if(Tam_paso <= 0)
     {
         QMessageBox::warning(this,"Pasos","Seleccione un valor mayor a 0");
@@ -421,7 +436,6 @@ void MainWindow::on_X_negativo_clicked()
     QString size = QString::number(Tam_paso);
     QString feedrate_number = QString::number(Feedrate_size_slicer);
     X.Coordenada_est = mpx.cap(2) + size;
-    qDebug() << X.Coordenada_est;
     if(Tam_paso <= 0)
     {
         QMessageBox::warning(this,"Pasos","Seleccione un valor mayor a 0");
@@ -673,7 +687,8 @@ void MainWindow::on_Guardar_clicked()
 
 void MainWindow::on_actionAcerca_triggered()
 {
-    QMessageBox::about(this,"Acerca de","Creado por Díaz López Adrián Darío");
+    QMessageBox Mensaje;
+    Mensaje.about(this,"Acerca de","Creado por Díaz López Adrián Darío");
 }
 
 void MainWindow::on_actionSalir_triggered()
@@ -873,17 +888,82 @@ void MainWindow::on_radioButton_4_toggled(bool checked)
 
 void MainWindow::on_Centro_clicked()
 {
-    Centro_bandera = true;
-    QString comando1 = "G91Z25";
-    QString comando2 = "G90X500Y500";
-    ui->Progreso_Gcode->setValue(0);
-    usbDevice->write((comando1 + "\r\n").toLatin1());
-    ui->Progreso_Gcode->setValue(25);
-    ui->Terminal->setText(comando1 + "\r\n");
-    ui->Progreso_Gcode->setValue(50);
-    usbDevice->write((comando2 + "\r\n").toLatin1());
-    ui->Progreso_Gcode->setValue(75);
-    ui->Terminal->setText(comando2 + "\r\n");
+    QMessageBox Mensaje;
+    Mensaje.setText("Antes de todo.");
+    Mensaje.setInformativeText("Asegurece de mandar primero a maquinaria al origen.");
 
+    QAbstractButton* ButtonSi = Mensaje.addButton(tr("Continuar"), QMessageBox::YesRole);
+    QAbstractButton* ButtonCancelar = Mensaje.addButton(tr("Cancelar"), QMessageBox::YesRole);
+    QAbstractButton* ButtonOrigen = Mensaje.addButton(tr("Ir origen"), QMessageBox::YesRole);
+    Mensaje.exec();
+    if (Mensaje.clickedButton() ==ButtonSi) {
 
+                Centro_bandera = true;
+                QString comando1 = "G91Z25";
+                QString comando2 = "G90X500Y500";
+                ui->Progreso_Gcode->setValue(0);
+                usbDevice->write((comando1 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(25);
+                ui->Terminal->setText(comando1 + "\r\n");
+                ui->Progreso_Gcode->setValue(50);
+                usbDevice->write((comando2 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(75);
+                ui->Terminal->setText(comando2 + "\r\n");
+            }
+     if(Mensaje.clickedButton() == ButtonOrigen)
+            {
+               QString comando1 = "$H";
+               usbDevice->write((comando1 + "\r\n").toLatin1());
+               ui->Progreso_Gcode->setValue(50);
+            }
+     if(Mensaje.clickedButton() == ButtonCancelar)
+     {}
+     else {
+
+     }
+}
+
+void MainWindow::on_Probing_clicked()
+{
+    QMessageBox Mensaje;
+    Mensaje.setText("Antes de todo.");
+    Mensaje.setInformativeText("Asegure el area.");
+
+    QAbstractButton* ButtonSi = Mensaje.addButton(tr("Continuar"), QMessageBox::YesRole);
+    QAbstractButton* ButtonCancelar = Mensaje.addButton(tr("Cancelar"), QMessageBox::YesRole);
+    Mensaje.exec();
+    if (Mensaje.clickedButton() ==ButtonSi) {
+
+                Probing_bandera = true;
+                QString comando1 = "G34.4 Z-10";
+                QString comando2 = "G91Z1";
+                QString comando3 = "G34.4 Z-1";
+                QString comando4 = "G92Z0";
+                QString comando5 = "G91Z3";
+                ui->Progreso_Gcode->setValue(0);
+                usbDevice->write((comando1 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(15);
+                ui->Terminal->setText(comando1 + "\r\n");
+                ui->Progreso_Gcode->setValue(20);
+                usbDevice->write((comando2 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(35);
+                ui->Terminal->setText(comando2 + "\r\n");
+                ui->Progreso_Gcode->setValue(40);
+                usbDevice->write((comando3 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(55);
+                ui->Terminal->setText(comando3 + "\r\n");
+                ui->Progreso_Gcode->setValue(60);
+                usbDevice->write((comando4 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(75);
+                ui->Terminal->setText(comando4 + "\r\n");
+                ui->Progreso_Gcode->setValue(80);
+                usbDevice->write((comando5 + "\r\n").toLatin1());
+                ui->Progreso_Gcode->setValue(95);
+                ui->Terminal->setText(comando5 + "\r\n");
+            }
+     if(Mensaje.clickedButton() == ButtonCancelar)
+     {}
+     else {
+
+     }
 }
